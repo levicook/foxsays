@@ -13,7 +13,7 @@ type route struct {
 
 var routes = []route{
 	{
-		"home",
+		"root",
 		"GET", "/", ping,
 	},
 
