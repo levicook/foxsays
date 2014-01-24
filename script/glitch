@@ -2,7 +2,7 @@
 set -e
 
 SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_HOME/../dev.env
+source $SCRIPT_HOME/../dev.env fast
 
 ulimit -S -n 2048
 
