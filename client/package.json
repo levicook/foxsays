@@ -1,0 +1,8 @@
+{
+  "name": "foxsays-client",
+  "description": "foxsays-client",
+  "private": true,
+  "devDependencies": {
+    "bower": "~1.2.8"
+  }
+}
