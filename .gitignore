@@ -8,3 +8,6 @@ server/src/github.com/gorilla/sessions
 server/src/github.com/stretchr/testify
 server/src/github.com/levicook/glitch
 server/src/github.com/spf13/cobra
+server/src/github.com/BurntSushi/toml
+server/src/github.com/levicook/go-detect
+server/src/github.com/BurntSushi/toml/tomlv

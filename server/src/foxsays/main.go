@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"foxsays/config"
+	"foxsays/httpd"
 	"github.com/spf13/cobra"
 	"os"
+	"path"
 )
 
 var rootCommand = &cobra.Command{
@@ -11,17 +15,21 @@ var rootCommand = &cobra.Command{
 	Long:  ``,
 }
 
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "short",
-	Long:  "long",
-	Run: func(cmd *cobra.Command, args []string) {
-		println("HEAD")
-	},
-}
-
 func init() {
-	rootCommand.AddCommand(versionCmd)
+
+	rootCommand.PersistentFlags().StringVarP(
+		&config.File,
+		"config", "c",
+		path.Join(config.AppRoot, "config", fmt.Sprintf("%s.toml", config.AppEnv)),
+		"")
+
+	rootCommand.AddCommand(&cobra.Command{
+		Use:   "httpd",
+		Short: "short help on httpd ...",
+		Long:  "longer help on httpd ...",
+		Run:   httpd.Run,
+	})
+
 }
 
 func main() {
