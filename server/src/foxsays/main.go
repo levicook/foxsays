@@ -10,17 +10,20 @@ import (
 )
 
 func main() {
-	rootCommand := &cobra.Command{
+	rootCmd := &cobra.Command{
 		Use:   "foxsays",
-		Short: "foxsays is a twitter clone"}
+		Short: "foxsays is a twitter clone",
+	}
 
-	rootCommand.PersistentFlags().StringVarP(
+	rootCmd.PersistentFlags().StringVarP(
 		&config.File, "config", "c",
-		path.Join(config.AppRoot, "config", fmt.Sprintf("%s.toml", config.AppEnv)), "")
+		path.Join(config.AppRoot, "config", fmt.Sprintf("%s.toml", config.AppEnv)),
+		"")
 
-	rootCommand.AddCommand(&cobra.Command{
+	rootCmd.AddCommand(&cobra.Command{
 		Use: "httpd",
-		Run: httpd.Run})
+		Run: httpd.Run,
+	})
 
-	log.FatalIf(rootCommand.Execute())
+	log.FatalIf(rootCmd.Execute())
 }
