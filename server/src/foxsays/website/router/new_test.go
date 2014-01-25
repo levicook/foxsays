@@ -11,7 +11,7 @@ func Test_New(t *testing.T) {
 	testCases := []struct {
 		method, path, name string
 	}{
-		{"GET", "/", "root"},
+		{"GET", "/", "public_home"},
 		{"GET", "/ping", "ping"},
 	}
 

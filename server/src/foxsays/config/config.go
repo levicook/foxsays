@@ -12,13 +12,17 @@ var (
 	AppRoot = detect.String(os.Getenv("APP_ROOT"), "./")
 	AppEnv  = detect.String(os.Getenv("APP_ENV"), "development")
 
-	File    string
+	File string
+
 	Website website
 )
 
-type website struct {
-	HttpAddr string `toml:"http_addr"`
-}
+type (
+	website struct {
+		Assets   string
+		HttpAddr string `toml:"http_addr"`
+	}
+)
 
 func Load() {
 	f, err := os.Open(File)
@@ -28,7 +32,7 @@ func Load() {
 
 func load(r io.Reader) {
 	_, err := toml.DecodeReader(r, &struct {
-		Website *website `toml:"website"`
+		Website *website
 	}{
 		Website: &Website,
 	})

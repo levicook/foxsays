@@ -1,6 +1,7 @@
 package router
 
 import (
+	"foxsays/website/pages/public_home"
 	"net/http"
 )
 
@@ -14,8 +15,8 @@ type route struct {
 var routes = []route{
 
 	{
-		"root",
-		"GET", "/", ping,
+		"public_home",
+		"GET", "/", public_home.Page,
 	},
 
 	{

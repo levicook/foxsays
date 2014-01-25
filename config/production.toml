@@ -1,3 +1,4 @@
 
 [website]
+assets = "/opt/foxsays/assets/website/pages"
 http_addr = ":1111"

@@ -1,3 +1,4 @@
 
 [website]
+assets = "./client/website/pages"
 http_addr = ":1111"

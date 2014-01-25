@@ -21,3 +21,9 @@ func FatalIf(err error) {
 		stdLog.Fatal(err)
 	}
 }
+
+func PanicIff(err error, template string, v ...interface{}) {
+	if err != nil {
+		stdLog.Panicf(template, v...)
+	}
+}
