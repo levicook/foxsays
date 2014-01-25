@@ -1,4 +1,4 @@
 
 [website]
-assets = "/opt/foxsays/assets/website/pages"
+assets = "/opt/foxsays/assets"
 http_addr = ":1111"

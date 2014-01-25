@@ -17,12 +17,10 @@ var (
 	Website website
 )
 
-type (
-	website struct {
-		Assets   string
-		HttpAddr string `toml:"http_addr"`
-	}
-)
+type website struct {
+	Assets   string
+	HttpAddr string `toml:"http_addr"`
+}
 
 func Load() {
 	f, err := os.Open(File)

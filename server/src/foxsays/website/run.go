@@ -7,12 +7,14 @@ import (
 	"foxsays/website/router"
 	"github.com/spf13/cobra"
 	"net/http"
+	"path"
 )
 
 func Run(_ *cobra.Command, _ []string) {
-
 	config.Load()
-	log.FatalIf(pages.LoadTemplates(config.Website.Assets))
+
+	templatePath := path.Join(config.Website.Assets, `website/pages`)
+	log.FatalIf(pages.LoadTemplates(templatePath))
 
 	log.Printf("website: listening at %v", config.Website.HttpAddr)
 	log.FatalIf(http.ListenAndServe(config.Website.HttpAddr, router.New()))
