@@ -11,3 +11,4 @@ server/src/github.com/spf13/cobra
 server/src/github.com/BurntSushi/toml
 server/src/github.com/levicook/go-detect
 server/src/github.com/BurntSushi/toml/tomlv
+supervise
