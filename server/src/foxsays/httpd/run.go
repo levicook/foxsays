@@ -9,11 +9,7 @@ import (
 )
 
 func Run(_ *cobra.Command, _ []string) {
-
 	config.Load()
-
-	http.Handle("/", router.New())
 	log.Printf("httpd: listening at %v", config.Httpd.HttpAddr)
-	log.FatalIf(http.ListenAndServe(config.Httpd.HttpAddr, nil))
-
+	log.FatalIf(http.ListenAndServe(config.Httpd.HttpAddr, router.New()))
 }
