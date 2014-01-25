@@ -13,6 +13,7 @@ development practices.
 
 Prereqs (make sure this stuff is installed)
 
+* daemontools
 * git
 * go
 * node
