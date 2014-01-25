@@ -13,9 +13,9 @@ development practices.
 
 Prereqs (make sure this stuff is installed)
 
-* Git
-* Go
-* Node
+* git
+* go
+* node
 
 Fork and clone this repository.
 

@@ -4,7 +4,4 @@ set -e
 SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $SCRIPT_HOME/../dev.env fast
 
-ulimit -S -n 2048
-
-cd $GOPATH/src/$APP_NAME
-exec glitch --after-all-ok=$APP_ROOT/script/after-all-ok
+go install $APP_NAME
