@@ -40,8 +40,22 @@ cd foxsays
 
 ### Daemons management
 
-Starting them: `./script/daemons/start`
+Starting them: 
 
-Restarting them: `./script/daemons/restart`
+```bash
+./script/daemons/start
+```
 
-Checking their status `./script/daemons/status`
+
+Restarting them:
+
+```bash
+./script/daemons/restart
+```
+
+
+Checking their status 
+
+```bash
+./script/daemons/status
+```
