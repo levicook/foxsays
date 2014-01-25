@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"foxsays/config"
-	"foxsays/httpd"
+	"foxsays/website"
 	"foxsays/log"
 	"github.com/spf13/cobra"
 	"path"
@@ -21,8 +21,8 @@ func main() {
 		"")
 
 	rootCmd.AddCommand(&cobra.Command{
-		Use: "httpd",
-		Run: httpd.Run,
+		Use: "website",
+		Run: website.Run,
 	})
 
 	log.FatalIf(rootCmd.Execute())
