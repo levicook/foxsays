@@ -30,6 +30,7 @@ gulp.task('express', function () {
     app.use(connectLiveReload({ port: LIVERELOAD_PORT }));
     app.use(express.directory(__dirname + '/build'));
     app.use(express.static(__dirname + '/build'));
+    app.use(express.static(__dirname));
     app.use(express.errorHandler());
 
     app.listen(EXPRESS_PORT);
