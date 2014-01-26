@@ -6,15 +6,15 @@
 	<body>
 		<div id="mocha"></div>
 		<div id="tail" style="display:none">
-			<script src="/website/shared.js"></script>
 			<script src="/bower_components/mocha/mocha.js"></script>
 			<script src="/bower_components/chai/chai.js"></script>
+			<script src="/website/shared.js"></script>
 			<script>
 				mocha.setup('tdd');
 				assert = chai.assert;
 			</script>
-			<script src="/website/pages/forgot_password/test.js"></script>
-			<script>mocha.run();</script>
+			<script src="/website/test.js"></script>
+			<script>(window.mochaPhantomJS ? mochaPhantomJS : mocha).run();</script>
 		</div>
 	</body>
 </html>
