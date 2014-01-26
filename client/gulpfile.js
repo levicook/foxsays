@@ -150,15 +150,31 @@ gulp.task('livereload', function () {
 });
 
 gulp.task('watch', ['express', 'livereload'], function () {
+    gulp.run('test');
 
-    gulp.watch('src/website/variables.less',                       [ 'website-css'        ]);
-    gulp.watch('src/website/shared.less',                          [ 'website-shared-css' ]);
-    gulp.watch('src/website/{components,pages}/*/*.less',          [ 'website-pages-css'  ]);
+    gulp.watch('src/website/variables.less',              ['website-css'       ]);
+    gulp.watch('src/website/shared.less',                 ['website-shared-css']);
+    gulp.watch('src/website/{components,pages}/*/*.less', ['website-pages-css' ]);
 
-    gulp.watch('src/website/test.html',                            [ 'website-test-html'  ]);
-    gulp.watch('src/website/{components,pages}/*/*.html',          [ 'website-pages-html' ]);
+    gulp.watch('src/website/test.html', ['website-test-html'], function () {
+        gulp.run('test');
+    });
 
-    gulp.watch('src/website/{components,pages}/*/*.{js,mustache}', [ 'website-pages-js', 'website-test-js' ]);
+    gulp.watch('src/website/{components,pages}/*/*.html', ['website-pages-html']);
+
+    gulp.watch('src/website/{components,pages}/*/*.{js,mustache}', [
+        'website-pages-js',
+        'website-test-js'
+    ], function () {
+        gulp.run('test');
+    });
+});
+
+
+gulp.task('test', function () {
+    require('child_process').exec('mocha-phantomjs http://localhost:1111/website/test.html -R dot', function(err, stdout, stderr) {
+        console.log(stdout);
+    });
 });
 
 gulp.task('default', ['assets', 'watch']);
