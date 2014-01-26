@@ -34,7 +34,12 @@ gulp.task('website-pages-css', function () {
 gulp.task('website-shared-css', function () {
     return gulp
     .src('src/website/shared.less')
-    .pipe(recess())
+    .pipe(recess({
+        noOverqualifying: false,
+        noUniversalSelectors: false,
+        strictPropertyOrder: false,
+        zeroUnits: false
+    }))
     .pipe(less())
     .pipe(csso())
     .pipe(gulp.dest('build/website'))
@@ -142,10 +147,14 @@ gulp.task('livereload', function () {
 });
 
 gulp.task('watch', ['express', 'livereload'], function () {
+
+    gulp.watch('src/website/variables.less',                       [ 'website-css'        ]);
     gulp.watch('src/website/shared.less',                          [ 'website-shared-css' ]);
+    gulp.watch('src/website/{components,pages}/*/*.less',          [ 'website-pages-css'  ]);
+
     gulp.watch('src/website/test.html',                            [ 'website-test-html'  ]);
     gulp.watch('src/website/{components,pages}/*/*.html',          [ 'website-pages-html' ]);
-    gulp.watch('src/website/{components,pages}/*/*.less',          [ 'website-pages-css'  ]);
+
     gulp.watch('src/website/{components,pages}/*/*.{js,mustache}', [ 'website-pages-js', 'website-test-js' ]);
 });
 
