@@ -6,4 +6,4 @@ source $SCRIPT_HOME/../dev.env fast
 
 go install $APP_NAME
 
-$APP_ROOT/script/daemons/restart
+$APP_ROOT/script/backend/restart
