@@ -50,6 +50,13 @@ gulp.task('website-pages-css', function () {
 });
 
 
+gulp.task('website-pages-html', function () {
+    gulp.src('src/website/pages/*/{demo,main,test}.html')
+    .pipe(gulp.dest('build/website/pages'))
+    .pipe(refresh(livereload));
+});
+
+
 gulp.task('website-pages-js', function () {
     gulp.src('src/website/pages/*/{demo,main,test}.js')
     .pipe(browserify({
@@ -104,6 +111,7 @@ gulp.task('default', [
     'express',
     'livereload',
     'website-pages-css',
+    'website-pages-html',
     'website-pages-js',
     'website-shared-css',
     'website-shared-js',
