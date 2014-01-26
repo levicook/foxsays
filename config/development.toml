@@ -1,4 +1,4 @@
 
 [website]
-assets = "./client/dist"
+assets = "./client/pkg"
 http_addr = ":2222"

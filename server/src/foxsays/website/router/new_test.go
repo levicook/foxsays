@@ -12,6 +12,7 @@ func Test_New(t *testing.T) {
 		method, path, name string
 	}{
 		{"GET", "/", "public_home"},
+		{"GET", "/forgot-password", "forgot_password"},
 		{"GET", "/ping", "ping"},
 	}
 

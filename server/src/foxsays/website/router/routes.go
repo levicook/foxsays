@@ -1,6 +1,7 @@
 package router
 
 import (
+	"foxsays/website/pages/forgot_password"
 	"foxsays/website/pages/public_home"
 	"net/http"
 )
@@ -17,6 +18,11 @@ var routes = []route{
 	{
 		"public_home",
 		"GET", "/", public_home.Page,
+	},
+
+	{
+		"forgot_password",
+		"GET", "/forgot-password", forgot_password.Page,
 	},
 
 	{
