@@ -1,21 +1,24 @@
 'use strict';
 
 
-var EXPRESS_PORT = 1111,
+var EXPRESS_PORT    = 1111,
     LIVERELOAD_PORT = 1112,
 
-    gulp = require('gulp'),
-    gulpBrowserify = require('gulp-browserify'),
-    gulpClean = require('gulp-clean'),
-    refresh = require('gulp-livereload'),
-    livereload = require('tiny-lr')();
+    gulp       = require('gulp'),
+    browserify = require('gulp-browserify'),
+    clean      = require('gulp-clean'),
+    refresh    = require('gulp-livereload'),
+    livereload = require('tiny-lr')(),
+
+    recess = require('gulp-recess'),
+    less   = require('gulp-less');
 
 
 
 gulp.task('clean', function () {
     gulp
     .src('build', { read: false })
-    .pipe(gulpClean());
+    .pipe(clean());
 });
 
 
@@ -38,10 +41,43 @@ gulp.task('livereload', function () {
 });
 
 
-gulp.task('website-vendor-js', function () {
-    gulp
-    .src('src/website/vendor.js')
-    .pipe(gulpBrowserify({
+gulp.task('website-pages-css', function () {
+    gulp.src('src/website/pages/*/main.less')
+    .pipe(recess())
+    .pipe(less())
+    .pipe(gulp.dest('build/website/pages'))
+    .pipe(refresh(livereload));
+});
+
+
+gulp.task('website-pages-js', function () {
+    gulp.src('src/website/pages/*/{demo,main,test}.js')
+    .pipe(browserify({
+        basedir: 'src',
+        debug: true
+    }))
+    .on('prebundle', function (bundle) {
+        bundle.external('bootstrap');
+        bundle.external('can');
+        bundle.external('jQuery');
+    })
+    .pipe(gulp.dest('build/website/pages'))
+    .pipe(refresh(livereload));
+});
+
+
+gulp.task('website-shared-css', function () {
+    gulp.src('src/website/shared.less')
+    .pipe(recess())
+    .pipe(less())
+    .pipe(gulp.dest('build/website'))
+    .pipe(refresh(livereload));
+});
+
+
+gulp.task('website-shared-js', function () {
+    gulp.src('src/website/shared.js')
+    .pipe(browserify({
         shim: {
             bootstrap: {
                 depends: { jQuery: 'jQuery' },
@@ -64,30 +100,16 @@ gulp.task('website-vendor-js', function () {
 });
 
 
-gulp.task('website-pages-js', function () {
-    gulp
-    .src('src/website/pages/*/{demo,main,test}.js')
-    .pipe(gulpBrowserify({
-        basedir: 'src',
-        debug: true
-    }))
-    .on('prebundle', function (bundle) {
-        bundle.external('bootstrap');
-        bundle.external('can');
-        bundle.external('jQuery');
-    })
-    .pipe(gulp.dest('build/website/pages'))
-    .pipe(refresh(livereload));
-});
-
-
 gulp.task('default', [
-    'clean',
-    'website-vendor-js',
-    'website-pages-js',
     'express',
     'livereload',
+    'website-pages-css',
+    'website-pages-js',
+    'website-shared-css',
+    'website-shared-js',
 ], function () {
-    gulp.watch('src/website/vendor.js', ['website-vendor-js']);
+    gulp.watch('src/website/shared.less', ['website-shared-css']);
+    gulp.watch('src/website/shared.js', ['website-shared-js']);
     gulp.watch('src/website/{components,pages}/*/*.js', ['website-pages-js']);
+    gulp.watch('src/website/{components,pages}/*/*.less', ['website-pages-css']);
 });
