@@ -3,4 +3,6 @@
 var can = require('can');
 
 module.exports = can.Control.extend({
+    init: function () {
+    }
 });

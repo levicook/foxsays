@@ -13,6 +13,10 @@
     "gulp-util": "~2.2.12",
     "tiny-lr": "0.0.5",
     "gulp-recess": "~0.2.0",
-    "gulp-less": "~1.1.10"
+    "gulp-less": "~1.1.10",
+    "gulp-htmlhint": "0.0.7",
+    "gulp-csso": "~0.2.2",
+    "gulp-jshint": "~1.3.4",
+    "jshint-stylish": "~0.1.5"
   }
 }
