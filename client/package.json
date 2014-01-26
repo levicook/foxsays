@@ -3,6 +3,14 @@
   "description": "foxsays-client",
   "private": true,
   "devDependencies": {
-    "bower": "~1.2.8"
+    "bower": "~1.2.8",
+    "connect-livereload": "~0.3.2",
+    "express": "~3.4.8",
+    "gulp": "~3.5.0",
+    "gulp-browserify": "~0.3.4",
+    "gulp-clean": "~0.2.4",
+    "gulp-livereload": "~0.2.0",
+    "gulp-util": "~2.2.12",
+    "tiny-lr": "0.0.5"
   }
 }

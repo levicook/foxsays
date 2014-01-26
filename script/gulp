@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_HOME/../dev.env fast
+
+cd $APP_ROOT/client
+exec gulp

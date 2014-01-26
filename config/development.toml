@@ -1,4 +1,4 @@
 
 [website]
 assets = "./client"
-http_addr = ":1111"
+http_addr = ":2222"
