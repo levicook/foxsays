@@ -29,7 +29,7 @@ gulp.task('website-pages-css', function () {
     }))
     .pipe(less())
     .pipe(csso())
-    .pipe(gulp.dest('build/website/pages'))
+    .pipe(gulp.dest('pkg/website/pages'))
     .pipe(refresh(livereload));
 });
 
@@ -45,7 +45,7 @@ gulp.task('website-shared-css', function () {
     }))
     .pipe(less())
     .pipe(csso())
-    .pipe(gulp.dest('build/website'))
+    .pipe(gulp.dest('pkg/website'))
     .pipe(refresh(livereload));
 });
 
@@ -58,7 +58,7 @@ gulp.task('website-pages-html', function () {
     .src('src/website/pages/*/{demo,main}.html')
     .pipe(htmlhint())
     .pipe(htmlhint.reporter())
-    .pipe(gulp.dest('build/website/pages'))
+    .pipe(gulp.dest('pkg/website/pages'))
     .pipe(refresh(livereload));
 });
 
@@ -67,7 +67,7 @@ gulp.task('website-test-html', function () {
     .src('src/website/test.html')
     .pipe(htmlhint())
     .pipe(htmlhint.reporter())
-    .pipe(gulp.dest('build/website'))
+    .pipe(gulp.dest('pkg/website'))
     .pipe(refresh(livereload));
 });
 
@@ -91,7 +91,7 @@ gulp.task('website-pages-js', ['website-jshint'], function () {
         insertGlobals: false,
         transform: ['rfileify']
     }))
-    .pipe(gulp.dest('build/website/pages'))
+    .pipe(gulp.dest('pkg/website/pages'))
     .pipe(refresh(livereload));
 });
 
@@ -103,7 +103,7 @@ gulp.task('website-shared-js', ['website-jshint'], function () {
         './bower_components/canjs/can.jquery.js',
     ])
     .pipe(concat('shared.js'))
-    .pipe(gulp.dest('build/website'))
+    .pipe(gulp.dest('pkg/website'))
     .pipe(refresh(livereload));
 });
 
@@ -117,7 +117,7 @@ gulp.task('website-test-js', ['website-jshint'], function () {
         insertGlobals: false,
         transform: ['rfileify']
     }))
-    .pipe(gulp.dest('build/website'))
+    .pipe(gulp.dest('pkg/website'))
     .pipe(refresh(livereload));
 });
 
@@ -137,8 +137,8 @@ gulp.task('express', function () {
         app = express();
 
     app.use(connectLiveReload({ port: LIVERELOAD_PORT }));
-    app.use(express.directory(__dirname + '/build'));
-    app.use(express.static(__dirname + '/build'));
+    app.use(express.directory(__dirname + '/pkg'));
+    app.use(express.static(__dirname + '/pkg'));
     app.use(express.static(__dirname));
     app.use(express.errorHandler());
 
