@@ -1,9 +1,7 @@
 'use strict';
 
-
 var can = window.can,
     rhtml = require('rhtml');
-
 
 module.exports = can.Control.extend({
     defaults: {

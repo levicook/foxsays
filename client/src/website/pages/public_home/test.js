@@ -20,5 +20,8 @@ suite('website/pages/public_home', function () {
             assert.instanceOf(publicHome, PublicHome);
         });
 
+        test('appended .public_home', function () {
+            assert.ok(element.find('.public_home').is('*'));
+        });
     });
 });

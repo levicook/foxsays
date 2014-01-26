@@ -20,5 +20,9 @@ suite('website/pages/forgot_password', function () {
             assert.instanceOf(forgotPassword, ForgotPassword);
         });
 
+        test('appended .forgot_password', function () {
+            assert.ok(element.find('.forgot_password').is('*'));
+        });
+
     });
 });
