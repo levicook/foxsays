@@ -24,7 +24,9 @@ gulp.task('website-css', ['website-pages-css', 'website-shared-css']);
 gulp.task('website-pages-css', function () {
     return gulp
     .src('src/website/pages/*/main.less')
-    .pipe(recess())
+    .pipe(recess({
+        noUnderscores: false
+    }))
     .pipe(less())
     .pipe(csso())
     .pipe(gulp.dest('build/website/pages'))
@@ -36,6 +38,7 @@ gulp.task('website-shared-css', function () {
     .src('src/website/shared.less')
     .pipe(recess({
         noOverqualifying: false,
+        noUnderscores: false,
         noUniversalSelectors: false,
         strictPropertyOrder: false,
         zeroUnits: false
