@@ -2,12 +2,12 @@
 
 
 var can = window.can,
-    file = require('rfile');
+    rhtml = require('rhtml');
 
 
 module.exports = can.Control.extend({
     defaults: {
-        view: can.view.mustache(file('./main.mustache'))
+        view: can.view.mustache(rhtml('./main.mustache'))
     }
 }, {
     init: function () {
