@@ -118,6 +118,7 @@ gulp.task('default', [
 ], function () {
     gulp.watch('src/website/shared.less', ['website-shared-css']);
     gulp.watch('src/website/shared.js', ['website-shared-js']);
-    gulp.watch('src/website/{components,pages}/*/*.js', ['website-pages-js']);
+    gulp.watch('src/website/{components,pages}/*/*.html', ['website-pages-html']);
+    gulp.watch('src/website/{components,pages}/*/*.{js,mustache}', ['website-pages-js']);
     gulp.watch('src/website/{components,pages}/*/*.less', ['website-pages-css']);
 });
