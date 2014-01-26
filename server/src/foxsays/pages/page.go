@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"foxsays/log"
-	"html/template"
 	"io"
+
+	htmlTemplate "html/template"
+	textTemplate "text/template"
 )
 
 type (
@@ -24,7 +26,7 @@ type (
 		Head     bytes.Buffer
 		Main     bytes.Buffer
 		Tail     bytes.Buffer
-		template *template.Template
+		template *textTemplate.Template
 	}
 )
 
@@ -63,13 +65,13 @@ func (p *page) Render(w io.Writer) {
 	}
 
 	e := p.template.Execute(w, struct {
-		Head template.HTML
-		Main template.HTML
-		Tail template.HTML
+		Head htmlTemplate.HTML
+		Main htmlTemplate.HTML
+		Tail htmlTemplate.HTML
 	}{
-		Head: template.HTML(p.Head.String()),
-		Main: template.HTML(p.Main.String()),
-		Tail: template.HTML(p.Tail.String()),
+		Head: htmlTemplate.HTML(p.Head.String()),
+		Main: htmlTemplate.HTML(p.Main.String()),
+		Tail: htmlTemplate.HTML(p.Tail.String()),
 	})
 
 	log.PanicIff(e, "page.Render failed %v", p.name)

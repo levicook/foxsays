@@ -2,13 +2,14 @@ package pages
 
 import (
 	"fmt"
-	"html/template"
 	"os"
 	"path/filepath"
 	"strings"
+
+	textTemplate "text/template"
 )
 
-type templateSet map[string]*template.Template
+type templateSet map[string]*textTemplate.Template
 
 var templates templateSet
 
@@ -36,7 +37,7 @@ func loadTemplates(path string) (ts templateSet, err error) {
 		parts := strings.Split(match, pathSep)
 		name := strings.Join(parts[len(parts)-3:len(parts)-1], pathSep)
 
-		t := template.New(name)
+		t := textTemplate.New(name)
 		if _, err = t.ParseFiles(match); err != nil {
 			return
 		}
