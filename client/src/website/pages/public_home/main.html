@@ -1,3 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/website/shared.css">
+		<link rel="stylesheet" href="/website/pages/public_home/main.css">
+		{{.Head}}
+	</head>
+	<body>
+		<div id="main">{{.Main}}</div>
+		<div id="tail" style="display:none">
+			{{.Tail}}
+			<script src="/website/shared.js"></script>
+			<script src="/website/pages/public_home/main.js"></script>
+		</div>
+	</body>
 </html>
