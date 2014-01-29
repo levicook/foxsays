@@ -150,24 +150,12 @@ gulp.task('livereload', function () {
 });
 
 gulp.task('watch', ['express', 'livereload'], function () {
-    gulp.run('test');
-
-    gulp.watch('src/website/variables.less',              ['website-css'       ]);
-    gulp.watch('src/website/shared.less',                 ['website-shared-css']);
-    gulp.watch('src/website/{components,pages}/*/*.less', ['website-pages-css' ]);
-
-    gulp.watch('src/website/test.html', ['website-test-html'], function () {
-        gulp.run('test');
-    });
-
-    gulp.watch('src/website/{components,pages}/*/*.html', ['website-pages-html']);
-
-    gulp.watch('src/website/{components,pages}/*/*.{js,mustache}', [
-        'website-pages-js',
-        'website-test-js'
-    ], function () {
-        gulp.run('test');
-    });
+    gulp.watch('src/website/variables.less',                       [ 'website-css'                         ]);
+    gulp.watch('src/website/shared.less',                          [ 'website-shared-css'                  ]);
+    gulp.watch('src/website/{components,pages}/*/*.less',          [ 'website-pages-css'                   ]);
+    gulp.watch('src/website/test.html',                            [ 'website-test-html'                   ]);
+    gulp.watch('src/website/{components,pages}/*/*.html',          [ 'website-pages-html'                  ]);
+    gulp.watch('src/website/{components,pages}/*/*.{js,mustache}', [ 'website-pages-js', 'website-test-js' ]);
 });
 
 
