@@ -5,7 +5,7 @@ import (
 	"foxsays/log"
 	"foxsays/pages"
 	"foxsays/website/router"
-	"github.com/spf13/cobra"
+	"foxsays/github.com/spf13/cobra"
 	"net/http"
 	"path"
 )

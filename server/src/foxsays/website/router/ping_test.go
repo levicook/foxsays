@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/stretchr/testify/assert"
+	"foxsays/github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"

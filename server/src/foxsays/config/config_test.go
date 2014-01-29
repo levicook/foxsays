@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/stretchr/testify/assert"
+	"foxsays/github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 )

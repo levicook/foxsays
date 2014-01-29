@@ -2,24 +2,24 @@ package config
 
 import (
 	"foxsays/log"
-	"github.com/BurntSushi/toml"
-	"github.com/levicook/go-detect"
+	"foxsays/github.com/BurntSushi/toml"
+	"foxsays/github.com/levicook/go-detect"
 	"io"
 	"os"
 )
 
 var (
-	AppRoot = detect.String(os.Getenv("APP_ROOT"), "./")
-	AppEnv  = detect.String(os.Getenv("APP_ENV"), "development")
+	AppRoot	= detect.String(os.Getenv("APP_ROOT"), "./")
+	AppEnv	= detect.String(os.Getenv("APP_ENV"), "development")
 
-	File string
+	File	string
 
-	Website website
+	Website	website
 )
 
 type website struct {
-	Assets   string
-	HttpAddr string `toml:"http_addr"`
+	Assets		string
+	HttpAddr	string	`toml:"http_addr"`
 }
 
 func Load() {

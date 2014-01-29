@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
-	"github.com/stretchr/testify/assert"
+	"foxsays/github.com/gorilla/mux"
+	"foxsays/github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
 )
