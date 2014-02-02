@@ -11,11 +11,9 @@ import (
 
 var routes = []route{
 	{
-		"home",
-		"GET", "/", filterSet{
-			// todo: rename public_home -> signed_out_home
-			// todo: rename dashboard   -> signed_in_home
-			public_home.Page,
+		"dashboard",
+		"GET", "/dashboard", filterSet{
+			filters.EnsureSignedIn,
 			dashboard.Page,
 		},
 	},
@@ -29,6 +27,12 @@ var routes = []route{
 	{
 		"ping",
 		"GET", "/ping", filterSet{ping},
+	},
+	{
+		"public_home",
+		"GET", "/", filterSet{
+			public_home.Page,
+		},
 	},
 	{
 		"settings",
