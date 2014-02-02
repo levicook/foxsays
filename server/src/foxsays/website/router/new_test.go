@@ -13,10 +13,10 @@ func Test_New(t *testing.T) {
 	}{
 		{"GET", "/", "home"},
 		{"GET", "/forgot_password", "forgot_password"},
+		{"GET", "/ping", "ping"},
+		{"GET", "/settings", "settings"},
 		{"GET", "/sign_in", "sign_in"},
 		{"GET", "/sign_out", "sign_out"},
-
-		{"GET", "/ping", "ping"},
 	}
 
 	router := New()
