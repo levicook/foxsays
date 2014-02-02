@@ -13,9 +13,11 @@ import (
 func Run(_ *cobra.Command, _ []string) {
 	config.Load()
 
+	log.SetPrefix("website: ")
+
 	templatePath := path.Join(config.Website.Assets, `website/pages`)
 	log.FatalIf(pages.LoadTemplates(templatePath))
 
-	log.Printf("website: listening at %v", config.Website.HttpAddr)
+	log.Printf("listening at %v", config.Website.HttpAddr)
 	log.FatalIf(http.ListenAndServe(config.Website.HttpAddr, router.New()))
 }

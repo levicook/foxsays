@@ -10,7 +10,7 @@ func New() *mux.Router {
 	for _, route := range routes {
 		router.Path(route.path).
 			Methods(route.method).
-			HandlerFunc(route.handler).
+			Handler(route).
 			Name(route.name)
 	}
 

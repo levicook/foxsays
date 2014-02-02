@@ -1,29 +1,39 @@
 package router
 
 import (
+	"foxsays/website/filters"
 	"foxsays/website/pages/dashboard"
 	"foxsays/website/pages/forgot_password"
 	"foxsays/website/pages/public_home"
-	"net/http"
+	"foxsays/website/pages/sign_in"
 )
 
-type route struct {
-	name    string
-	method  string
-	path    string
-	handler func(http.ResponseWriter, *http.Request)
-}
-
 var routes = []route{{
-	"public_home",
-	"GET", "/", public_home.Page,
-}, {
-	"dashboard",
-	"GET", "/dashboard", dashboard.Page,
+	"home",
+	"GET", "/", filterSet{
+		// todo: rename public_home -> signed_out_home
+		// todo: rename dashboard   -> signed_in_home
+		public_home.Page,
+		dashboard.Page,
+	},
 }, {
 	"forgot_password",
-	"GET", "/forgot-password", forgot_password.Page,
+	"GET", "/forgot_password", filterSet{
+		filters.EnsureSignedOut,
+		forgot_password.Page,
+	},
+}, {
+	"sign_in",
+	"GET", "/sign_in", filterSet{
+		filters.EnsureSignedOut,
+		sign_in.Page,
+	},
+}, {
+	"sign_out",
+	"GET", "/sign_out", filterSet{
+		filters.SignOut,
+	},
 }, {
 	"ping",
-	"GET", "/ping", ping,
+	"GET", "/ping", filterSet{ping},
 }}

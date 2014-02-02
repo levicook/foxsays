@@ -13,8 +13,10 @@ var (
 	Print     = stdLog.Print
 	Printf    = stdLog.Printf
 	Println   = stdLog.Println
-	SetOutput = stdLog.SetOutput
+	SetPrefix = stdLog.SetPrefix
 )
+
+func init() { stdLog.SetFlags(0) }
 
 func FatalIf(err error) {
 	if err != nil {

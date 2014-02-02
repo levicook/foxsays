@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"foxsays/config"
-	"github.com/spf13/cobra"
 	"foxsays/log"
 	"foxsays/website"
+	"github.com/spf13/cobra"
 	"path"
 )
 
