@@ -7,11 +7,11 @@ import (
 
 func EnsureSignedOut(w http.ResponseWriter, r *http.Request) {
 	session := config.Session.ForWebsite(r)
+	_, signedIn := session.Values["uid"]
 
-	if !session.IsNew {
-		session.Values = make(map[interface{}]interface{})
+	if signedIn {
+		delete(session.Values, "uid")
+		session.Save(r, w)
+		http.Redirect(w, r, r.RequestURI, http.StatusFound)
 	}
-
-	session.Save(r, w)
-	http.Redirect(w, r, r.RequestURI, http.StatusFound)
 }

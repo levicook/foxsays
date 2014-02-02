@@ -11,10 +11,10 @@ func EnsureSignedIn(w http.ResponseWriter, r *http.Request) {
 	_, signedIn := session.Values["uid"]
 
 	if !signedIn {
-		q := new(url.Values)
+		q := url.Values{}
 		q.Set("revisit", r.RequestURI)
 
-		u := new(url.URL)
+		u := url.URL{}
 		u.Path = "/sign_in"
 		u.RawQuery = q.Encode()
 
