@@ -1,4 +1,0 @@
-
-[website]
-assets = "/opt/foxsays/assets"
-http_addr = ":2222"
