@@ -22,5 +22,7 @@ func load(r io.Reader) {
 		Website: &Website,
 	})
 
+	Session.load()
+
 	log.FatalIf(err)
 }

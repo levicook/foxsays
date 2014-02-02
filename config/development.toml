@@ -1,4 +1,10 @@
 
+[session]
+new_authentication_key = "new_authentication_key"
+new_encryption_key     = "new_encryption_key"
+old_authentication_key = "old_authentication_key"
+old_encryption_key     = "old_encryption_key"
+
 [website]
 assets = "./client/pkg"
 http_addr = ":2222"
