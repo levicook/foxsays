@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"foxsays/config"
-	"foxsays/github.com/spf13/cobra"
+	"github.com/spf13/cobra"
 	"foxsays/log"
 	"foxsays/website"
 	"path"

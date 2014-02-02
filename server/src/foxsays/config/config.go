@@ -1,39 +1,12 @@
 package config
 
 import (
-	"foxsays/log"
-	"foxsays/github.com/BurntSushi/toml"
-	"foxsays/github.com/levicook/go-detect"
-	"io"
+	"github.com/levicook/go-detect"
 	"os"
 )
 
 var (
-	AppRoot	= detect.String(os.Getenv("APP_ROOT"), "./")
-	AppEnv	= detect.String(os.Getenv("APP_ENV"), "development")
-
-	File	string
-
-	Website	website
+	AppRoot = detect.String(os.Getenv("APP_ROOT"), "./")
+	AppEnv  = detect.String(os.Getenv("APP_ENV"), "development")
+	File    string
 )
-
-type website struct {
-	Assets		string
-	HttpAddr	string	`toml:"http_addr"`
-}
-
-func Load() {
-	f, err := os.Open(File)
-	log.FatalIf(err)
-	load(f)
-}
-
-func load(r io.Reader) {
-	_, err := toml.DecodeReader(r, &struct {
-		Website *website
-	}{
-		Website: &Website,
-	})
-
-	log.FatalIf(err)
-}

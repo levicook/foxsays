@@ -1,6 +1,7 @@
 package router
 
 import (
+	"foxsays/website/pages/dashboard"
 	"foxsays/website/pages/forgot_password"
 	"foxsays/website/pages/public_home"
 	"net/http"
@@ -13,20 +14,16 @@ type route struct {
 	handler func(http.ResponseWriter, *http.Request)
 }
 
-var routes = []route{
-
-	{
-		"public_home",
-		"GET", "/", public_home.Page,
-	},
-
-	{
-		"forgot_password",
-		"GET", "/forgot-password", forgot_password.Page,
-	},
-
-	{
-		"ping",
-		"GET", "/ping", ping,
-	},
-}
+var routes = []route{{
+	"public_home",
+	"GET", "/", public_home.Page,
+}, {
+	"dashboard",
+	"GET", "/dashboard", dashboard.Page,
+}, {
+	"forgot_password",
+	"GET", "/forgot-password", forgot_password.Page,
+}, {
+	"ping",
+	"GET", "/ping", ping,
+}}
