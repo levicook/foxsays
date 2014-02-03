@@ -6,9 +6,13 @@ import (
 )
 
 func Page(w http.ResponseWriter, r *http.Request) {
-	// if signed in, lookup and redirect to dashboard route
+	session := config.Session.ForWebsite(r)
 
-	p := config.Website.GetPage(`pages/public_home`)
-	p.WriteTitle(`Home | Foxsays`)
-	p.Render(w)
+	if _, signedIn := session.Values["uid"]; signedIn {
+		http.Redirect(w, r, "/dashboard", http.StatusFound)
+	} else {
+		p := config.Website.GetPage(`pages/public_home`)
+		p.WriteTitle(`Home | Foxsays`)
+		p.Render(w)
+	}
 }
