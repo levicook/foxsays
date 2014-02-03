@@ -12,6 +12,10 @@ import (
 )
 
 type (
+	PageSet interface {
+		Get(name string) Page
+	}
+
 	Page interface {
 		WriteTitle(t string)
 		WriteHead(string)
@@ -29,15 +33,6 @@ type (
 		template *textTemplate.Template
 	}
 )
-
-func GetPage(name string) Page {
-	p := new(page)
-
-	p.name = name
-	p.template = templates[name]
-
-	return p
-}
 
 func (p *page) WriteTitle(title string) {
 	p.Head.WriteString(`<title>`)

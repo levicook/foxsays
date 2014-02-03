@@ -15,14 +15,14 @@ func Load() {
 
 func load(r io.Reader) {
 	_, err := toml.DecodeReader(r, &struct {
+		Mongo   *mongo
 		Session *session
 		Website *website
 	}{
+		Mongo:   &Mongo,
 		Session: &Session,
 		Website: &Website,
 	})
-
-	Session.load()
 
 	log.FatalIf(err)
 }

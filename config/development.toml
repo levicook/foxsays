@@ -1,4 +1,8 @@
 
+[mongo]
+database = "foxsays"
+dial = "127.0.0.1"
+
 [session]
 new_authentication_key = "new_authentication_key"
 new_encryption_key     = "new_encryption_key"

@@ -1,12 +1,12 @@
 package settings
 
 import (
-	"foxsays/pages"
+	"foxsays/config"
 	"net/http"
 )
 
 func Page(w http.ResponseWriter, r *http.Request) {
-	p := pages.GetPage(`pages/settings`)
+	p := config.Website.GetPage(`pages/settings`)
 	p.WriteTitle(`Settings | Foxsays`)
 	p.Render(w)
 }

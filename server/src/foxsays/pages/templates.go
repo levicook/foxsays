@@ -2,6 +2,7 @@ package pages
 
 import (
 	"fmt"
+	"foxsays/log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -11,25 +12,33 @@ import (
 
 type templateSet map[string]*textTemplate.Template
 
-var templates templateSet
+func (ts templateSet) Get(name string) Page {
+	p := new(page)
 
-func LoadTemplates(path string) (err error) {
-	templates, err = loadTemplates(path)
-	return
+	p.name = name
+	p.template = ts[name]
+
+	return p
 }
 
-func loadTemplates(path string) (ts templateSet, err error) {
+func LoadPages(templatePath string) PageSet {
+	t, e := loadTemplates(templatePath)
+	log.FatalIf(e)
+	return t
+}
+
+func loadTemplates(templatePath string) (ts templateSet, err error) {
 	const pathSep = string(os.PathSeparator)
 
 	ts = make(templateSet)
 
-	if !strings.HasSuffix(path, "pages") {
-		err = fmt.Errorf("invalid template path: %s", path)
+	if !strings.HasSuffix(templatePath, "pages") {
+		err = fmt.Errorf("invalid template templatePath: %s", templatePath)
 		return
 	}
 
 	var matches []string
-	if matches, err = filepath.Glob(filepath.Join(path, "*/main.html")); err != nil {
+	if matches, err = filepath.Glob(filepath.Join(templatePath, "*/main.html")); err != nil {
 		return
 	}
 

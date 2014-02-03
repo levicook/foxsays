@@ -16,7 +16,7 @@ type session struct {
 	store sessions.Store `toml:"-"`
 }
 
-func (s *session) load() {
+func (s *session) Init() {
 	s.store = sessions.NewCookieStore(
 		[]byte(s.NewAuthenticationKey),
 		[]byte(s.NewEncryptionKey),
