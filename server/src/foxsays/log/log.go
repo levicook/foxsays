@@ -1,6 +1,9 @@
 package log
 
-import stdLog "log"
+import (
+	"github.com/davecgh/go-spew/spew"
+	stdLog "log"
+)
 
 var (
 	Fatal   = stdLog.Fatal
@@ -17,9 +20,19 @@ var (
 
 func init() { stdLog.SetFlags(0) }
 
+func Dump(v ...interface{}) {
+	spew.Dump(v...)
+}
+
 func FatalIf(err error) {
 	if err != nil {
 		stdLog.Fatal(err)
+	}
+}
+
+func PanicIf(err error) {
+	if err != nil {
+		stdLog.Panic(err)
 	}
 }
 

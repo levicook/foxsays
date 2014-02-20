@@ -22,3 +22,4 @@ server/src/launchpad.net/gocheck
 supervise
 tmp
 server/src/github.com/BurntSushi/toml
+server/src/github.com/davecgh/go-spew/spew
