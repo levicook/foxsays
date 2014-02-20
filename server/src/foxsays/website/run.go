@@ -8,8 +8,8 @@ import (
 	"net/http"
 )
 
-func Run(_ *cobra.Command, _ []string) {
-	log.SetPrefix("website: ")
+func Run(c *cobra.Command, _ []string) {
+	log.SetPrefix(c.Name())
 
 	config.Load()
 
