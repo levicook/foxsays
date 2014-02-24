@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"path"
+
 	"foxsays/config"
 	"foxsays/log"
 	"foxsays/website"
+
 	"github.com/spf13/cobra"
-	"path"
 )
 
 func main() {
