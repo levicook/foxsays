@@ -1,8 +1,9 @@
 package log
 
 import (
-	"github.com/davecgh/go-spew/spew"
 	stdLog "log"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 var (

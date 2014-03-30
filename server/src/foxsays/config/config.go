@@ -1,8 +1,9 @@
 package config
 
 import (
-	"github.com/levicook/go-detect"
 	"os"
+
+	"github.com/levicook/go-detect"
 )
 
 var (

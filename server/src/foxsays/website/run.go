@@ -4,8 +4,9 @@ import (
 	"foxsays/config"
 	"foxsays/log"
 	"foxsays/website/router"
-	"github.com/spf13/cobra"
 	"net/http"
+
+	"github.com/spf13/cobra"
 )
 
 func Run(c *cobra.Command, _ []string) {

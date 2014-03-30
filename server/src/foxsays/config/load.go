@@ -2,9 +2,10 @@ package config
 
 import (
 	"foxsays/log"
-	"github.com/BurntSushi/toml"
 	"io"
 	"os"
+
+	"github.com/BurntSushi/toml"
 )
 
 func Load() {

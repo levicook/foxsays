@@ -2,6 +2,7 @@ package config
 
 import (
 	"foxsays/log"
+
 	"labix.org/v2/mgo"
 )
 

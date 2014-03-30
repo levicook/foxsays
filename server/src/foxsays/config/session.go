@@ -1,8 +1,9 @@
 package config
 
 import (
-	"github.com/gorilla/sessions"
 	"net/http"
+
+	"github.com/gorilla/sessions"
 )
 
 var Session session
