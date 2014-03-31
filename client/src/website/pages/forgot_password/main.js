@@ -1,5 +1,4 @@
 'use strict';
 
 var ForgotPassword = require('./');
-
-window.page = new ForgotPassword(document.getElementById('demo'));
+window.page = new ForgotPassword(document.getElementById('main'));
