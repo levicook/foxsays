@@ -1,5 +1,5 @@
 'use strict';
 
-var PublicHome = require('./website/pages/public_home');
+var PublicHome = require('./');
 
 window.page = new PublicHome(document.getElementById('demo'));

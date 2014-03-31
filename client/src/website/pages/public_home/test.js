@@ -5,7 +5,7 @@ var assert = window.assert,
     setup = window.setup,
     test = window.test,
     $ = window.jQuery,
-    PublicHome = require('./website/pages/public_home');
+    PublicHome = require('./');
 
 suite('website/pages/public_home', function () {
     suite('PublicHome', function () {

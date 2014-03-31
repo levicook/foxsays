@@ -5,5 +5,5 @@ SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $SCRIPT_HOME/../../dev.env fast
 
 cd $SCRIPT_HOME
-daemons=$(find . -type d -maxdepth 1 -mindepth 1 | tr "./" " ")
+daemons=$(find . -maxdepth 1 -mindepth 1 -type d | tr "./" " ")
 svstat $daemons

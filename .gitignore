@@ -1,4 +1,7 @@
+client/Makefile
 client/bower_components
+client/build
+client/dist
 client/node_modules
 client/pkg
 
@@ -9,3 +12,5 @@ server/src
 
 supervise
 tmp
+
+*.sw*

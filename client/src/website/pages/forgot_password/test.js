@@ -4,16 +4,15 @@ var assert = window.assert,
     suite = window.suite,
     setup = window.setup,
     test = window.test,
-    $ = window.jQuery,
-    ForgotPassword = require('./website/pages/forgot_password');
+    ForgotPassword = require('./');
 
 suite('website/pages/forgot_password', function () {
     suite('ForgotPassword', function () {
         var element, forgotPassword;
 
         setup(function () {
-            element = $('<div/>');
-            forgotPassword = new ForgotPassword(element, {});
+            element = document.createElement('div');
+            forgotPassword = new ForgotPassword(element);
         });
 
         test('is a ForgotPassword', function () {

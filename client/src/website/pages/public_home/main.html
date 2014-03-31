@@ -4,14 +4,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="/website/shared.css">
 		<link rel="stylesheet" href="/website/pages/public_home/main.css">
-		<!--[if lt IE 9]>
-			<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-		<![endif]-->
 		{{.Head}}
 	</head>
 	<body>
-		<div id="main">{{.Main}}</div>
+		<noscript>{{.NoScript}}</noscript>
+		<div id="main"></div>
 		<div id="tail" style="display:none">
 			{{.Tail}}
 			<script src="/website/shared.js"></script>

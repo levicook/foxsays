@@ -1,22 +1,23 @@
 'use strict';
 
-var can = window.can,
-    rhtml = require('rhtml');
+var header = require('../../components/member_header/index.js'),
+    footer = require('../../components/member_footer/index.js');
 
-module.exports = can.Control.extend({
-    defaults: {
-        view: can.view.mustache(rhtml('./main.mustache'))
+module.exports = {
+
+    controller: function () {
+        this.header = new header.controller();
+        this.footer = new footer.controller();
+    },
+
+    view: function (ctrl) {
+        this.header = new header.view(ctrl.header);
+        this.footer = new footer.view(ctrl.footer);
+
+        return m('.forgot_password', [
+            m('.header', [header]),
+            m('h2', 'Forgot Password'),
+            m('.footer', [footer])
+        ]);
     }
-}, {
-    init: function () {
-        var control = this,
-            element = control.element,
-            options = control.options;
-
-        control.model = {};
-
-        control.helpers = {};
-
-        element.append(options.view(control.model, control.helpers));
-    }
-});
+};

@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+var glob = require('glob'),
+    path = require('path'),
+    util = require('util');
+
+var f = util.format;
+
+var componentSources = glob.sync('src/website/components/*/*.js');
+
+var sDemos = glob.sync('src/website/{components,pages}/*/demo.js'),
+    bDemos = sDemos.map(function (sDemo) { return sDemo.replace('src', 'build'); }),
+    dDemos = sDemos.map(function (sDemo) { return sDemo.replace('src', 'dist');  });
+
+var sMains = glob.sync('src/website/pages/*/main.js'),
+    bMains = sMains.map(function (sMain) { return sMain.replace('src', 'build'); }),
+    dMains = sMains.map(function (sMain) { return sMain.replace('src', 'dist');  });
+
+var allJs = glob.sync('src/website/{components,pages}/*/*.js');
+
+
+function p() {
+    for (var i = 0, j = arguments.length; i < j; i++) {
+        var arg = arguments[i];
+        if (arg.join) {
+            arg = arg.join(' ');
+        }
+        util.print(arg);
+    }
+    util.print('\n');
+}
+
+
+// render the makefile:
+
+p('all: build-demos build-tests dist-mains');
+
+p('build-demos: ', bDemos);
+p('build-mains: ', bMains);
+p('build-tests: build/website/test.js');
+
+p('build/website/test.js: ', allJs.filter(function (js) { return js.indexOf('demo.js') < 0; }));
+p('\t', f('browserify --fast src/website/{components,pages}/*/test.js -o build/website/test.js'));
+
+p('dist-mains: ', dMains);
+
+
+sDemos.forEach(function (sDemo) {
+    var bDemo = sDemo.replace('src', 'build'),
+        bRoot = path.dirname(bDemo),
+        sRoot = path.dirname(sDemo),
+        sDeps = glob.sync(sRoot + '/*.js');
+
+    p(bRoot, ':');
+    p('\t', f('mkdir -p %s', bRoot));
+
+    p(bDemo, ': ', [bRoot].concat(sDeps).concat(componentSources));
+    p('\t', f('browserify --fast %s -o %s', sDemo, bDemo));
+});
+
+
+sMains.forEach(function (sMain) {
+    var bMain = sMain.replace('src', 'build'),
+        dMain = sMain.replace('src', 'dist'),
+        bRoot = path.dirname(bMain),
+        dRoot = path.dirname(dMain),
+        sRoot = path.dirname(sMain),
+        sDeps = glob.sync(sRoot + '/*.js');
+
+    p(bMain, ': ', [bRoot].concat(sDeps).concat(componentSources));
+    p('\t', f('browserify --fast %s -o %s', sMain, bMain));
+
+    p(dRoot, ':');
+    p('\t', f('mkdir -p %s', dRoot));
+
+    p(dMain, ': ', [bMain, dRoot]);
+    p('\t', f('cp %s %s', bMain, dMain));
+});
