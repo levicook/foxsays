@@ -27,9 +27,9 @@ function make() {
 
 // render the makefile:
 
+make('SHELL=/bin/bash');
 
 make('all: build-js dist-js');
-
 
 make('build-js: build-js-demos build-js-mains build-js-tests');
 make('build-js-demos: ', sDemos.map(function (s) { return s.replace('src', 'build'); }));
