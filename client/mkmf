@@ -9,17 +9,12 @@ var f = util.format;
 var componentSources = glob.sync('src/website/components/*/*.js');
 
 var sDemos = glob.sync('src/website/{components,pages}/*/demo.js'),
-    bDemos = sDemos.map(function (sDemo) { return sDemo.replace('src', 'build'); }),
-    dDemos = sDemos.map(function (sDemo) { return sDemo.replace('src', 'dist');  });
-
-var sMains = glob.sync('src/website/pages/*/main.js'),
-    bMains = sMains.map(function (sMain) { return sMain.replace('src', 'build'); }),
-    dMains = sMains.map(function (sMain) { return sMain.replace('src', 'dist');  });
+    sMains = glob.sync('src/website/pages/*/main.js');
 
 var allJs = glob.sync('src/website/{components,pages}/*/*.js');
 
 
-function p() {
+function make() {
     for (var i = 0, j = arguments.length; i < j; i++) {
         var arg = arguments[i];
         if (arg.join) {
@@ -30,19 +25,20 @@ function p() {
     util.print('\n');
 }
 
-
 // render the makefile:
 
-p('all: build-demos build-tests dist-mains');
 
-p('build-demos: ', bDemos);
-p('build-mains: ', bMains);
-p('build-tests: build/website/test.js');
+make('all: build-js dist-js');
 
-p('build/website/test.js: ', allJs.filter(function (js) { return js.indexOf('demo.js') < 0; }));
-p('\t', f('browserify --fast src/website/{components,pages}/*/test.js -o build/website/test.js'));
 
-p('dist-mains: ', dMains);
+make('build-js: build-js-demos build-js-mains build-js-tests');
+make('build-js-demos: ', sDemos.map(function (s) { return s.replace('src', 'build'); }));
+make('build-js-mains: ', sMains.map(function (s) { return s.replace('src', 'build'); }));
+make('build-js-tests: build/website/test.js');
+
+
+make('dist-js: dist-js-mains');
+make('dist-js-mains: ', sMains.map(function (s) { return s.replace('src', 'dist');  }));
 
 
 sDemos.forEach(function (sDemo) {
@@ -51,11 +47,11 @@ sDemos.forEach(function (sDemo) {
         sRoot = path.dirname(sDemo),
         sDeps = glob.sync(sRoot + '/*.js');
 
-    p(bRoot, ':');
-    p('\t', f('mkdir -p %s', bRoot));
+    make(bRoot, ':');
+    make('\t', f('mkdir -p %s', bRoot));
 
-    p(bDemo, ': ', [bRoot].concat(sDeps).concat(componentSources));
-    p('\t', f('browserify --fast %s -o %s', sDemo, bDemo));
+    make(bDemo, ': ', [bRoot].concat(sDeps).concat(componentSources));
+    make('\t', f('browserify --fast %s -o %s', sDemo, bDemo));
 });
 
 
@@ -67,12 +63,15 @@ sMains.forEach(function (sMain) {
         sRoot = path.dirname(sMain),
         sDeps = glob.sync(sRoot + '/*.js');
 
-    p(bMain, ': ', [bRoot].concat(sDeps).concat(componentSources));
-    p('\t', f('browserify --fast %s -o %s', sMain, bMain));
+    make(bMain, ': ', [bRoot].concat(sDeps).concat(componentSources));
+    make('\t', f('browserify --fast %s -o %s', sMain, bMain));
 
-    p(dRoot, ':');
-    p('\t', f('mkdir -p %s', dRoot));
+    make(dRoot, ':');
+    make('\t', f('mkdir -p %s', dRoot));
 
-    p(dMain, ': ', [bMain, dRoot]);
-    p('\t', f('cp %s %s', bMain, dMain));
+    make(dMain, ': ', [bMain, dRoot]);
+    make('\t', f('cp %s %s', bMain, dMain));
 });
+
+make('build/website/test.js: ', allJs);
+make('\t', f('browserify --fast src/website/{components,pages}/*/test.js -o build/website/test.js'));

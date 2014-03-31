@@ -18,6 +18,7 @@
     "phantomjs": "~1.9.6-0",
     "tiny-lr": "0.0.5",
     "gulp-util": "~2.2.12",
-    "glob": "^3.2.9"
+    "glob": "^3.2.9",
+    "browserify": "^3.38.0"
   }
 }
