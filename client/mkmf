@@ -44,12 +44,14 @@ make('dist-js-mains: ', sMains.map(function (s) { return s.replace('src', 'dist'
 
 sDemos.forEach(function (sDemo) {
     var bDemo = sDemo.replace('src', 'build'),
+
         bRoot = path.dirname(bDemo),
         sRoot = path.dirname(sDemo),
+
         sDeps = glob.sync(sRoot + '/*.js'),
-        bDeps = sDeps.concat(componentSources).filter(function (bDep) {
+        bDeps = sDeps.concat(componentSources.filter(function (bDep) {
             return (bDep.indexOf('demo.js') < 0 && bDep.indexOf('test.js') < 0);
-        });
+        }));
 
     make(bDemo, ': ', bDeps);
     make('\t', f('test -d %s || mkdir -p %s', bRoot, bRoot));
@@ -58,12 +60,13 @@ sDemos.forEach(function (sDemo) {
 
 sMains.forEach(function (sMain) {
     var bMain = sMain.replace('src', 'build'),
-        bRoot = path.dirname(bMain),
-
         dMain = sMain.replace('src', 'dist'),
-        dRoot = path.dirname(dMain),
 
-        sDeps = glob.sync(path.dirname(sMain) + '/*.js'),
+        bRoot = path.dirname(bMain),
+        dRoot = path.dirname(dMain),
+        sRoot = path.dirname(sMain),
+
+        sDeps = glob.sync(sRoot + '/*.js'),
         bDeps = sDeps.concat(componentSources).filter(function (bDep) {
             return (bDep.indexOf('demo.js') < 0 && bDep.indexOf('fixture.js') < 0 && bDep.indexOf('test.js') < 0);
         });
