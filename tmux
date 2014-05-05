@@ -3,6 +3,7 @@ set -e
 
 SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $SCRIPT_HOME/dev.env fast
+cd $APP_ROOT
 
 session=$APP_NAME
 
@@ -36,5 +37,5 @@ if ! tmux ls | grep -q "$session"; then
 fi
 
 tmux select-window -t $session:1
-tmux select-pane -U
+tmux select-pane -R
 exec tmux attach-session -d -t $session
