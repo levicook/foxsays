@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_HOME/../../dev.env fast
+
+lint-go && test-go && go install $APP_NAME/...
