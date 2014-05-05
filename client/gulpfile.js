@@ -244,4 +244,7 @@ gulp.task('default', [
     'express',
     'livereload',
     'watch',
-]);
+], function () {
+    console.log('[express] listening at http://127.0.0.1:' + EXPRESS_PORT);
+    console.log('[livereload] listening at http://127.0.0.1:' + LIVERELOAD_PORT);
+});
