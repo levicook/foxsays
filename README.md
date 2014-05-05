@@ -36,8 +36,7 @@ Start the client daemons (above) and the server daemons in a fresh terminal.
 ```bash
 cd foxsays
 source dev.env fast
-./server/daemons/start # note, this will emit errors until build-client has a clean run
-start-server
+start-server # note, this will emit errors until build-client has a clean run
 ```
 
 Then browse http://localhost:3080
