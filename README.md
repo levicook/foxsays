@@ -31,7 +31,7 @@ When your client changes are ready for integration, run `lint-js && test-js`.
 ```bash
 cd foxsays
 source dev.env fast
-./server/daemons/start
+./server/daemons/start # note, this will fail until build-client has a clean run
 ```
 
 Then browse http://localhost:3080

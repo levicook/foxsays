@@ -6,4 +6,4 @@ source $SCRIPT_HOME/../../dev.env fast
 
 cd $APP_ROOT/client
 
-lint-js && make
+lint-js && test-js && make
