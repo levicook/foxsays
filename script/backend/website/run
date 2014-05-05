@@ -1,5 +1,0 @@
-#!/bin/bash
-set -e
-
-cd $APP_ROOT
-exec foxsays website
