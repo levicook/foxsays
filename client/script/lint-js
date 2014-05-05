@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_HOME/../../dev.env fast
+
+pushd $APP_ROOT/client > /dev/null
+
+MAIN_JS=$(find src -type f -name '*.js' -not -name test.js -printf "%C@ %p\n" | sort -r | awk '{print $2}')
+TEST_JS=$(find src -type f -name test.js -printf "%C@ %p\n" | sort -r | awk '{print $2}')
+
+echo $MAIN_JS | tr " " "\n"  | parallel --halt 2 "lint-single-js .main.jshintrc {}"
+echo $TEST_JS | tr " " "\n"  | parallel --halt 2 "lint-single-js .test.jshintrc {}"

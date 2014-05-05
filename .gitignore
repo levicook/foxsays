@@ -1,0 +1,14 @@
+*.sw*
+
+supervise
+tmp
+
+client/dist
+client/pkg
+client/bower_components
+client/node_modules
+
+server/bin
+server/pkg
+server/src/*
+!server/src/foxsays

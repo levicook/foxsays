@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/mocha/mocha.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="mocha"></div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="/vendor-test.js"></script>
+<script>
+mocha.setup('tdd');
+tt = chai.assert.ok;
+ff = chai.assert.notOk;
+</script>
+<script src="test.js"></script>
+<script>(window.mochaPhantomJS ? mochaPhantomJS : mocha).run();</script>
+<script src="//localhost:2223/livereload.js?snipver=1"></script>
+</body>
+</html>

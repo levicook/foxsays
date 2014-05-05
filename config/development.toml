@@ -1,0 +1,7 @@
+
+[httpd]
+addr = "0.0.0.0:3080"
+
+[mongo]
+dial = "127.0.0.1"
+database = "foxsays"

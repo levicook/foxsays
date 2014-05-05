@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+test_url=$1
+
+echo ------------------------------------------------------------------
+echo -n $test_url
+exec mocha-phantomjs -R dot $test_url

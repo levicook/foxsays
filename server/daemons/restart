@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_HOME/../../dev.env fast
+
+go get $APP_NAME/...
+
+cd $SCRIPT_HOME
+services=$(find . -maxdepth 1 -mindepth 1 -type d | tr './' ' ')
+
+for service in $services; do
+	svc -h $service
+done

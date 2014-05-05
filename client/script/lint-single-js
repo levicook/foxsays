@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+config=$1
+jsfile=$2
+
+echo -n $jsfile;
+exec jshint --config $config --reporter node_modules/jshint-stylish/stylish.js $jsfile
+
+#exec jshint --config $config $jsfile
