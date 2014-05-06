@@ -5,6 +5,7 @@ import (
 
 	"foxsays/httpd/main/images"
 	"foxsays/httpd/main/pages/dashboard"
+	"foxsays/httpd/main/pages/home"
 	"foxsays/httpd/route"
 )
 
@@ -15,6 +16,12 @@ func Routes() route.Routes {
 		{
 			"main_dashboard",
 			"GET", "/dashboard", dashboard.Show,
+		},
+
+		// home
+		{
+			"main_home",
+			"GET", "/", home.Show,
 		},
 
 		// images

@@ -17,6 +17,8 @@ func Test_Routes(t *testing.T) {
 	}{
 		{"GET", "/dashboard", "main_dashboard", vars{}},
 
+		{"GET", "/", "main_home", vars{}},
+
 		{"GET", "/images/asdf", "main_show_image", vars{
 			"imageId": "asdf",
 		}},

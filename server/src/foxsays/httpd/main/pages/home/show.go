@@ -1,4 +1,4 @@
-package dashboard
+package home
 
 import (
 	"net/http"
@@ -6,6 +6,6 @@ import (
 )
 
 func Show(w http.ResponseWriter, r *http.Request) {
-	p := page.Page{Id: `main/pages/dashboard`}
+	p := page.Page{Id: `main/pages/home`}
 	p.Render(w)
 }
