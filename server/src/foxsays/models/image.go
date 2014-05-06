@@ -21,25 +21,25 @@ func (o Image) Errors() Errors {
 	errors := make(Errors)
 
 	if o.Id == "" {
-		errors["Id"] = "is required"
+		errors["id"] = "is required"
 	}
 
 	if !mime.IsImage(o.ContentType) {
-		errors["ContentType"] = "is invalid"
+		errors["contentType"] = "is invalid"
 	}
 
 	if o.CreatedAt.IsZero() {
-		errors["CreatedAt"] = "is required"
+		errors["createdAt"] = "is required"
 	}
 
 	if o.CreatedBy == "" {
-		errors["CreatedBy"] = "is required"
+		errors["createdBy"] = "is required"
 	}
 
 	if o.Size == 0 {
-		errors["Size"] = "is required"
+		errors["size"] = "is required"
 	} else if o.Size < 0 {
-		errors["Size"] = "is invalid"
+		errors["size"] = "is invalid"
 	}
 
 	return errors
