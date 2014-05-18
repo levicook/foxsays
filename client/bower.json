@@ -10,7 +10,7 @@
     "tests"
   ],
   "dependencies": {
-    "canjs": "~2.0.7",
+    "canjs": "~2.1.0",
     "jquery": "~2.1.0",
     "mocha": "~1.18.2",
     "chai": "~1.9.1",

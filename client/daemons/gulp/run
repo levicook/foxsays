@@ -2,4 +2,4 @@
 set -e
 
 cd $APP_ROOT/client
-exec gulp | grep -v '... Reload'
+exec gulp --color
