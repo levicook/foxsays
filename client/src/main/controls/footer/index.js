@@ -4,7 +4,7 @@ var rhtml = require('rhtml');
 
 module.exports = can.Control.extend({
     defaults: {
-        view: can.view.mustache(rhtml('./main.mustache'))
+        view: can.stache(rhtml('./main.mustache'))
     }
 }, {
     init: function (element, options) {

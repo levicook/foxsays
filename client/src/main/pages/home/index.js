@@ -4,21 +4,21 @@ require('../../helpers/global_helpers');
 
 var rhtml = require('rhtml');
 
+var Footer = require('../../controls/footer');
+var Header = require('../../controls/header');
+
+
 module.exports = can.Control.extend({
-    defaults: {
-        view: can.view.mustache(rhtml('./main.mustache'))
-    }
+	defaults: {
+		view: can.stache(rhtml('./main.mustache'))
+	}
 }, {
-    init: function (element, options) {
-        var Header = require('../../components/header'),
-            Footer = require('../../components/footer');
+	init: function (element, options) {
+		this.model = {};
 
-        this.model = {};
-        this.helpers = {};
+		element.append(options.view(this.model));
 
-        element.append(options.view(this.model, this.helpers));
-
-        this.header = new Header(element.find('.headerHook'));
-        this.footer = new Footer(element.find('.footerHook'));
-    }
+		this.header = new Header(element.find('.headerHook'));
+		this.footer = new Footer(element.find('.footerHook'));
+	}
 });
