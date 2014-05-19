@@ -1,9 +1,9 @@
 package config
 
 import (
+	"foxsays/log"
 	"io"
 	"os"
-	"foxsays/log"
 
 	"github.com/BurntSushi/toml"
 )
@@ -16,11 +16,13 @@ func Load() {
 
 func load(r io.Reader) (err error) {
 	_, err = toml.DecodeReader(r, &struct {
-		Httpd *httpd `toml:"httpd"`
-		Mongo *mongo `toml:"mongo"`
+		Httpd    *httpdSection    `toml:"httpd"`
+		Mongo    *mongoSection    `toml:"mongo"`
+		Password *passwordSection `toml:"password"`
 	}{
-		Httpd: &Httpd,
-		Mongo: &Repos,
+		Httpd:    &Httpd,
+		Mongo:    &mongo,
+		Password: &pword,
 	})
 
 	return

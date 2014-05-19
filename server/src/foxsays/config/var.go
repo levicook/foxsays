@@ -17,8 +17,11 @@ var (
 	File    string
 
 	Assets assets
-	Httpd  httpd
-	Repos  mongo
+	Repos  repositories
+
+	Httpd httpdSection
+	mongo mongoSection
+	pword passwordSection
 )
 
 var (
