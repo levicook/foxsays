@@ -13,7 +13,6 @@ import (
 func Get(r *http.Request) Session {
 	store := config.Httpd.NewSessionStore()
 	gs, _ := store.Get(r, config.Httpd.SessionName)
-
 	return &session{r: r, gs: gs}
 }
 
