@@ -25,7 +25,6 @@ clean:
 dist: dist-css dist-js
 	@gulp dist
 	@find dist/assets -type f -name '*.min.js' -o -name '*.min.css' | xargs rm -f
-	@rewrite-asset-paths
 
 dist-css: $(DST_PAGE_CSS)
 
