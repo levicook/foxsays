@@ -1,18 +1,24 @@
 package images
 
 import (
-	"encoding/json"
-	"io"
-	"net/http"
 	"foxsays/config"
+	"foxsays/httpd/sessions"
+	"foxsays/httpd/status"
+	"foxsays/httpd/utils"
 	"foxsays/log"
 	"foxsays/models"
+	"io"
+	"net/http"
 
 	"github.com/levicook/head"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {
-	// TODO validateAdminPresent
+
+	if sc, st := utils.ValidateSuperUser(r); sc > 0 {
+		http.Error(w, st, sc)
+		return
+	}
 
 	if sc, st := validateContentLength(r); sc > 0 {
 		http.Error(w, st, sc)
@@ -24,7 +30,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fileRepo := config.Repos.OpenFileRepo()
+	fileRepo := config.Repos.NewFileRepo()
 
 	file, err := fileRepo.Create()
 	log.PanicIf(err)
@@ -67,14 +73,13 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdBy := models.UserId(0) // TODO populate this
+	createdBy := sessions.Get(r).RealUserId()
 	image := models.NewImage(file, createdBy)
 
 	{ // save image
-		imageRepo := config.Repos.OpenImageRepo()
+		imageRepo := config.Repos.NewImageRepo()
 		log.PanicIf(imageRepo.Create(image))
 	}
 
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	json.NewEncoder(w).Encode(image)
+	utils.WriteJson(w, status.OK, image)
 }

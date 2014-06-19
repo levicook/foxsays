@@ -1,10 +1,17 @@
 SHELL := /bin/bash
 
-SRC_JS      := $(shell find src -type f -name '*.js')
-SRC_PAGE_JS := $(shell find src/*/pages -type f -name 'main.js')
-PKG_PAGE_JS := $(SRC_PAGE_JS:src/%.js=pkg/%.js)
+SRC_JS        := $(shell find src -type f -name '*.js')
+SRC_LESS      := $(shell find src -type f -name '*.less')
 
-.PHONY: all clean dist pkg pkg-less
+SRC_PAGE_LESS := $(shell find src/*/pages -type f -name 'main.less')
+DST_PAGE_CSS  := $(SRC_PAGE_LESS:src/%.less=dist/assets/%.min.css)
+
+SRC_PAGE_JS   := $(shell find src/*/pages -type f -name 'main.js')
+DST_PAGE_JS   := $(SRC_PAGE_JS:src/%.js=dist/assets/%.min.js)
+
+#-------------
+
+.PHONY: all clean dist dist-css dist-js
 
 all:
 	@make clean
@@ -12,20 +19,21 @@ all:
 
 clean:
 	@rm -fr dist/**
-	@rm -fr pkg/**
 
-dist: pkg
-	@find dist -type f -name '*.js' | xargs rm -f
+#-------------
+
+dist: dist-css dist-js
 	@gulp dist
+	@find dist/assets -type f -name '*.min.js' -o -name '*.min.css' | xargs rm -f
+	@rewrite-asset-paths
 
-pkg: pkg-less pkg/vendor-main.js $(PKG_PAGE_JS)
+dist-css: $(DST_PAGE_CSS)
 
-pkg/vendor-main.js:
-	@gulp pkg:vendor-main.js
+dist-js: $(DST_PAGE_JS)
 
-pkg-less:
-	@gulp pkg:less
+dist/%.css: $(SRC_LESS)
+	@lessc --compress $(subst .min.css,.less,$(subst dist/assets,src,$@)) $@
 
-pkg/%.js: $(SRC_PAGE_JS)
+dist/%.js: $(SRC_PAGE_JS)
 	@mkdir -p $(@D)
-	@browserify -t rfileify $(subst pkg,src,$@) -o $@
+	@browserify --ig -t rfileify $(subst .min,,$(subst dist/assets,src,$@)) | uglifyjs --compress > $@

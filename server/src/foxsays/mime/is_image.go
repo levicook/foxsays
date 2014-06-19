@@ -1,9 +1,5 @@
 package mime
 
-import "strings"
-
-var hasPrefix = strings.HasPrefix
-
 func IsImage(contentType string) bool {
 	switch {
 

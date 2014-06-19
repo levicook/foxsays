@@ -5,20 +5,26 @@ import (
 
 	"foxsays/httpd/main/images"
 	"foxsays/httpd/main/pages/dashboard"
+	"foxsays/httpd/main/pages/home"
 	"foxsays/httpd/route"
+	"foxsays/httpd/sessions"
 )
 
 func Routes() route.Routes {
 	return route.Routes{
 
-		// dashboard
-		{
+		{ // home, dashboard, logout
+			"main_home",
+			"GET", "/", home.Show,
+		}, {
 			"main_dashboard",
 			"GET", "/dashboard", dashboard.Show,
+		}, {
+			"main_logout",
+			"GET", "/logout", sessions.Logout("/"),
 		},
 
-		// images
-		{
+		{ // images
 			"main_show_image",
 			"GET", "/images/{imageId}", images.Show,
 		}, {
@@ -29,8 +35,7 @@ func Routes() route.Routes {
 			"GET", "/images/{imageId}/meta", images.Meta,
 		},
 
-		// usersAPI
-		{
+		{ // usersAPI
 			"main_api_signup_user",
 			"POST", "/api/users/signup", usersAPI.Signup,
 		}, {

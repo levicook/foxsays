@@ -6,7 +6,7 @@ import (
 	"labix.org/v2/mgo"
 )
 
-func OpenFileRepo(db *mgo.Database) FileRepo {
+func NewFileRepo(db *mgo.Database) FileRepo {
 	return fileRepo{db.GridFS("files")}
 }
 

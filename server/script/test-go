@@ -6,4 +6,4 @@ source $SCRIPT_HOME/../../dev.env fast
 
 go get github.com/stretchr/testify/assert
 
-go test $APP_NAME/...
+exec go test $APP_NAME/... $@

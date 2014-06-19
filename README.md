@@ -4,7 +4,9 @@ foxsays
 Fork and clone git@github.com:levicook/foxsays.git
 
 
-### First pass: make sure everything builds:
+### First pass
+
+Make sure everything builds:
 
 ```bash
 cd foxsays
@@ -13,8 +15,7 @@ build-client
 build-server
 ```
 
-
-### Ongoing frontend development
+### Ongoing front end development
 
 Start the client daemons in a fresh terminal.
 

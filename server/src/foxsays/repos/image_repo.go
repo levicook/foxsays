@@ -9,7 +9,7 @@ import (
 	"labix.org/v2/mgo/bson"
 )
 
-func OpenImageRepo(db *mgo.Database) ImageRepo {
+func NewImageRepo(db *mgo.Database) ImageRepo {
 	c := db.C("images")
 	log.FatalIf(c.EnsureIndexKey("img.cby"))
 	return imageRepo{c}

@@ -6,10 +6,6 @@ import (
 )
 
 func Show(w http.ResponseWriter, r *http.Request) {
-	p := page.Page{
-		Id:   `main/pages/dashboard`,
-		Tail: `<script id="dataPool" type="application/json"></script>`,
-	}
-
+	p := page.Page{Id: `main/pages/dashboard`}
 	p.Render(w)
 }

@@ -1,11 +1,12 @@
 package images
 
 import (
-	"encoding/json"
-	"net/http"
 	"foxsays/config"
 	"foxsays/httpd/route"
+	"foxsays/httpd/status"
+	"foxsays/httpd/utils"
 	"foxsays/log"
+	"net/http"
 
 	"github.com/gorilla/mux"
 )
@@ -15,11 +16,10 @@ func Meta(w http.ResponseWriter, r *http.Request) {
 }
 
 func meta(w http.ResponseWriter, r *http.Request, v route.Vars) {
-	imageRepo := config.Repos.OpenImageRepo()
+	imageRepo := config.Repos.NewImageRepo()
 
 	image, err := imageRepo.OneById(v.FileId("imageId"))
 	log.PanicIf(err)
 
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	json.NewEncoder(w).Encode(image)
+	utils.WriteJson(w, status.OK, image)
 }

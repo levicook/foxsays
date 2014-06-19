@@ -8,11 +8,9 @@ var EXPRESS_PORT    = 3081,
     cache      = require('gulp-cached'),
     changed    = require('gulp-changed'),
     concat     = require('gulp-concat'),
-    cssmin     = require('gulp-cssmin'),
     gulp       = require('gulp'),
     gulpLR     = require('gulp-livereload'),
     jshint     = require('gulp-jshint'),
-    less       = require('gulp-less'),
     rename     = require('gulp-rename'),
     rev        = require('gulp-rev'),
     tinyLR     = require('tiny-lr')(),
@@ -22,21 +20,22 @@ var EXPRESS_PORT    = 3081,
     hasPrefix = strings.hasPrefix,
     hasSuffix = strings.hasSuffix,
 
-    vendorJS = {
-        demo: [
-            './bower_components/canjs/can.object.js',
-            './bower_components/canjs/can.fixture.js',
-        ],
-        main: [
-            './bower_components/uri.js/src/URI.js',
-            './bower_components/canjs/can.jquery.min.js',
-            './bower_components/canjs/can.list.sort.js',
-        ],
-        test: [
-            './bower_components/mocha/mocha.js',
-            './bower_components/chai/chai.js',
-        ]
-    };
+vendorJS = {
+    demo: [
+        './bower_components/canjs/can.object.js',
+        './bower_components/canjs/can.fixture.js',
+    ],
+    main: [
+        './bower_components/uri.js/src/URI.js',
+        './bower_components/canjs/can.jquery.js',
+        './bower_components/canjs/can.stache.js',
+        './bower_components/canjs/can.list.sort.js',
+    ],
+    test: [
+        './bower_components/mocha/mocha.js',
+        './bower_components/chai/chai.js',
+    ]
+};
 
 // ------------------------------------------
 
@@ -53,24 +52,23 @@ function newBrowserifyFor(reqPath) {
 
 // ------------------------------------------
 
-gulp.task('clear', function () {
-    process.stdout.write('\u001B[2J\u001B[0;0f');
-});
-
-// ------------------------------------------
-
 gulp.task('express', function () {
-    var browserify  = require('browserify'),
-        connectLR   = require('connect-livereload'),
-        express     = require('express'),
-        app         = express(),
-        serveIndex  = require('serve-index'),
-        serveStatic = require('serve-static');
+    var browserify     = require('browserify');
+    var connectLR      = require('connect-livereload');
+    var express        = require('express');
+    var lessMiddleware = require('less-middleware');
+    var serveIndex     = require('serve-index');
+    var serveStatic    = require('serve-static');
+
+    var app = express();
 
     app.use(function (req, res, next) {
         if (shouldBrowserify(req.path)) {
             res.set('Content-Type', 'application/javascript');
-            newBrowserifyFor(req.path).bundle({ detectGlobals: false }).pipe(res);
+            newBrowserifyFor(req.path).bundle({
+                detectGlobals: false,
+                insertGlobals: true,
+            }).pipe(res);
         } else {
             next();
         }
@@ -95,6 +93,13 @@ gulp.task('express', function () {
     app.use(connectLR({ port: LIVERELOAD_PORT }));
 
     app.use(serveIndex('./src', { icons: true }));
+
+    app.use(lessMiddleware('./src', {
+        compiler: { compress: false },
+        dest: './pkg',
+        force: true
+    }));
+
     app.use(serveStatic('./src'));
     app.use(serveStatic('./pkg'));
     app.use('/mocha', serveStatic('./bower_components/mocha'));
@@ -109,7 +114,8 @@ gulp.task('express', function () {
 gulp.task('htmlhint', function () {
     var htmlhint = require("gulp-htmlhint");
 
-    return gulp.src("./src/**/*.{html,mustache}")
+    return gulp
+    .src("./src/**/*.{html,mustache}")
     .pipe(htmlhint({ htmlhintrc: '.htmlhintrc' }))
     .pipe(htmlhint.reporter())
     .pipe(gulpLR(tinyLR))
@@ -121,7 +127,10 @@ gulp.task('jshint', ['jshint:main', 'jshint:test']);
 
 gulp.task('jshint:main', function() {
     return gulp
-    .src(['./src/**/*.js', '!./src/**/test.js'])
+    .src([
+        './src/**/*.js',
+        '!./src/**/test.js'
+    ])
     .pipe(cache('js'))
     .pipe(jshint('.main.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'))
@@ -147,46 +156,25 @@ gulp.task('pkg:vendor-main.js', function() {
 });
 
 gulp.task('pkg:vendor-demo.js', function() {
-    return gulp.src(vendorJS.main.concat(vendorJS.demo))
+    return gulp
+    .src(vendorJS.main.concat(vendorJS.demo))
     .pipe(concat('vendor-demo.js'))
     .pipe(gulp.dest('./pkg'))
 });
 
 gulp.task('pkg:vendor-test.js', function() {
-    return gulp.src(vendorJS.main.concat(vendorJS.demo).concat(vendorJS.test))
+    return gulp
+    .src(vendorJS.main.concat(vendorJS.demo).concat(vendorJS.test))
     .pipe(concat('vendor-test.js'))
     .pipe(gulp.dest('./pkg'))
 });
 
 // ------------------------------------------
 
-gulp.task('pkg:less', function() {
+gulp.task('dist:img', function() {
     return gulp
-    .src('./src/**/*.less')
-    .pipe(changed('./pkg', { extension: '.css' }))
-    .pipe(less())
-    .pipe(gulp.dest('./pkg'))
-    .pipe(gulpLR(tinyLR))
-});
-
-// ------------------------------------------
-
-gulp.task('dist:css', function () {
-    return gulp
-    .src('./pkg/*/pages/**/*.css')
-    .pipe(gulp.dest('./dist/assets'))
-    .pipe(cssmin())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./dist/assets'))
-});
-
-gulp.task('dist:pages:js', function () {
-    return gulp
-    .src('./pkg/*/pages/**/main.js')
-    .pipe(gulp.dest('./dist/assets'))
-    .pipe(uglify({ outSourceMap: true }))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('./dist/assets'))
+    .src('./src/**/img/**')
+    .pipe(gulp.dest('./dist/assets'));
 });
 
 gulp.task('dist:vendor-main.js', ['pkg:vendor-main.js'], function () {
@@ -199,8 +187,7 @@ gulp.task('dist:vendor-main.js', ['pkg:vendor-main.js'], function () {
 });
 
 gulp.task('dist', [
-    'dist:css',
-    'dist:pages:js',
+    'dist:img',
     'dist:vendor-main.js',
     'pkg:vendor-demo.js', // \__ So we don't muck up our dev environment.
     'pkg:vendor-test.js', // /
@@ -226,15 +213,20 @@ gulp.task('livereload', function () {
 // ------------------------------------------
 
 gulp.task('watch', ['pkg'], function () {
-    gulp.watch('./src/**/*.js', ['clear', 'jshint']);
-    gulp.watch('./src/**/*.less', ['clear', 'pkg:less']);
-    gulp.watch('./src/**/*.{html,mustache}', ['clear', 'htmlhint']);
+    gulp.watch('./src/**/*.js', ['jshint']);
+    gulp.watch('./src/**/*.{html,mustache}', ['htmlhint']);
+    gulp.watch('./src/**/*.less').on('change', function(file) {
+        tinyLR.changed({
+            body: {
+                files: [file.path]
+            }
+        });
+    });
 });
 
 // ------------------------------------------
 
 gulp.task('pkg', [
-    'pkg:less',
     'pkg:vendor-demo.js',
     'pkg:vendor-main.js',
     'pkg:vendor-test.js',

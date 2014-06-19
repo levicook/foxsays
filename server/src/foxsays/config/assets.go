@@ -2,10 +2,10 @@ package config
 
 import (
 	"encoding/json"
+	"foxsays/log"
 	"io/ioutil"
 	"net/http"
 	"path"
-	"foxsays/log"
 )
 
 type assets struct {

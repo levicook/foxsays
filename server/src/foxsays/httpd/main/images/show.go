@@ -1,11 +1,11 @@
 package images
 
 import (
-	"io"
-	"net/http"
 	"foxsays/config"
 	"foxsays/httpd/route"
 	"foxsays/log"
+	"io"
+	"net/http"
 
 	"github.com/gorilla/mux"
 )
@@ -15,7 +15,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 }
 
 func show(w http.ResponseWriter, r *http.Request, v route.Vars) {
-	fileRepo := config.Repos.OpenFileRepo()
+	fileRepo := config.Repos.NewFileRepo()
 
 	file, err := fileRepo.OneById(v.FileId("imageId"))
 	log.PanicIf(err)

@@ -2,11 +2,11 @@ package images
 
 import (
 	"fmt"
-	"io"
-	"net/http"
 	"foxsays/config"
 	"foxsays/httpd/route"
 	"foxsays/log"
+	"io"
+	"net/http"
 
 	"github.com/gorilla/mux"
 )
@@ -16,7 +16,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 }
 
 func download(w http.ResponseWriter, r *http.Request, v route.Vars) {
-	fileRepo := config.Repos.OpenFileRepo()
+	fileRepo := config.Repos.NewFileRepo()
 
 	file, err := fileRepo.OneById(v.FileId("imageId"))
 	log.PanicIf(err)

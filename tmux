@@ -23,7 +23,7 @@ if ! tmux ls | grep -q "$session"; then
 	tmux send-keys -t $session:1.2 "vim +:NERDTree" C-m
 
 	tmux send-keys -t $session:1.1 "source $APP_ROOT/dev.env fast && clear" C-m
-	tmux send-keys -t $session:1.1 "start-client" C-m
+	tmux send-keys -t $session:1.1 "start-client | grep -v Reload" C-m
 
 	tmux send-keys -t $session:1.3 "source $APP_ROOT/dev.env fast && clear" C-m
 	tmux send-keys -t $session:1.3 "start-server" C-m
